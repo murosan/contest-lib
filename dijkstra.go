@@ -11,19 +11,14 @@ import (
 
 //start:Dijkstra:
 //imports[math,container/heap]
-type EdgeD struct {
-	From     int
-	To       int
-	Distance int
-}
-
+//dependsOn[Edge]
 type Cost struct {
 	to       int
 	priority int
 	index    int
 }
 
-func Dijkstra(edges []EdgeD, start, goal int) (connected bool, cost int) {
+func Dijkstra(edges []Edge, start, goal int) (connected bool, cost int) {
 	if len(edges) == 0 {
 		return
 	}

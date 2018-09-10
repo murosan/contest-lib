@@ -19,6 +19,7 @@ type Edge struct {
 
 //start:BellmanFord:
 //imports[math]
+//dependsOn[Edge]
 func BellmanFord(edges []Edge, start, goal int) (connected bool, cost int) {
 	if len(edges) == 0 {
 		return
