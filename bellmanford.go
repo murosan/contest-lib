@@ -8,15 +8,18 @@ import (
 	"math"
 )
 
-//start:BellmanFord:
-//imports[math]
-type EdgeB struct {
+//start:Edge:
+type Edge struct {
 	From     int
 	To       int
 	Distance int
 }
 
-func BellmanFord(edges []EdgeB, start, goal int) (connected bool, cost int) {
+//end:Edge:
+
+//start:BellmanFord:
+//imports[math]
+func BellmanFord(edges []Edge, start, goal int) (connected bool, cost int) {
 	if len(edges) == 0 {
 		return
 	}
