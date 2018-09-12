@@ -12,6 +12,15 @@ import (
 	"strings"
 )
 
+//start:ScanInt:
+//imports[fmt]
+func ScanInt() (i int) {
+	fmt.Scan(&i)
+	return
+}
+
+//end:ScanInt:
+
 //start:NewReader:
 //imports[bufio,os]
 type Reader struct {
@@ -56,9 +65,11 @@ func ReadStrs(r *Reader) []string {
 //end:ReadStrs:
 
 //start:ReadInt:
-//imports[fmt]
-func ReadInt() (i int) {
-	fmt.Scan(&i)
+//dependsOn[ReadLine]
+func ReadInt(r *Reader) (n int) {
+	if i, e := strconv.Atoi(ReadLine(r)); e == nil {
+		n = i
+	}
 	return
 }
 
