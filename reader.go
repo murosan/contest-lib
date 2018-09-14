@@ -6,20 +6,11 @@ package cutil
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
 )
 
-//start:ScanInt:
-//imports[fmt]
-func ScanInt() (i int) {
-	fmt.Scan(&i)
-	return
-}
-
-//end:ScanInt:
 
 //start:NewReader:
 //imports[bufio,os]
