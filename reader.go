@@ -58,8 +58,8 @@ func ReadLine(r *Reader) string {
 //start:ReadStrs:
 //imports[strings]
 //dependsOn[ReadLine]
-func ReadStrs(r *Reader) []string {
-	return strings.Split(ReadLine(r), " ")
+func ReadStrs(r *Reader, sep string) []string {
+	return strings.Split(ReadLine(r), sep)
 }
 
 //end:ReadStrs:
@@ -78,8 +78,8 @@ func ReadInt(r *Reader) (n int) {
 //start:ReadInts:
 //imports[strconv]
 //dependsOn[ReadStrs]
-func ReadInts(r *Reader) []int {
-	a := ReadStrs(r)
+func ReadInts(r *Reader, sep string) []int {
+	a := ReadStrs(r, sep)
 	n := make([]int, 0)
 	for _, v := range a {
 		if i, e := strconv.Atoi(v); e == nil {
@@ -104,8 +104,8 @@ func ReadInt64(r *Reader) int64 {
 //start:ReadInts64:
 //imports[strconv]
 //dependsOn[ReadStrs]
-func ReadInts64(r *Reader) []int64 {
-	a := ReadStrs(r)
+func ReadInts64(r *Reader, sep string) []int64 {
+	a := ReadStrs(r, sep)
 	n := make([]int64, 0)
 	for _, v := range a {
 		if i, e := strconv.ParseInt(v, 10, 64); e == nil {
