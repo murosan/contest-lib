@@ -6,7 +6,7 @@ package cutil
 
 import (
 	"bufio"
-	"os"
+	"io"
 	"strconv"
 	"unicode/utf8"
 )
@@ -18,14 +18,21 @@ import (
 
 //start:NewScanner:
 //imports[bufio,os]
-var sc = bufio.NewScanner(os.Stdin)
+type Scanner struct {
+	sc *bufio.Scanner
+}
+
+func NewScanner(r io.Reader) *Scanner {
+	return &Scanner{bufio.NewScanner(r)}
+}
+
 //end:NewScanner:
 
 //start:ScanStr:
 //dependsOn[NewScanner]
-func ScanStr() string {
-	sc.Scan()
-	return sc.Text()
+func (s *Scanner) ScanStr() string {
+	s.sc.Scan()
+	return s.sc.Text()
 }
 
 //end:ScanStr:
@@ -33,9 +40,9 @@ func ScanStr() string {
 //start:ScanInt:
 //imports[strconv]
 //dependsOn[NewScanner]
-func ScanInt() int {
-	sc.Scan()
-	i, e := strconv.Atoi(sc.Text())
+func (s *Scanner) ScanInt() int {
+	s.sc.Scan()
+	i, e := strconv.Atoi(s.sc.Text())
 	if e != nil {
 		panic(e)
 	}
@@ -46,47 +53,47 @@ func ScanInt() int {
 
 //start:ScanLine:
 //dependsOn[NewScanner]
-func ScanLine() string {
-	sc.Scan()
-	return sc.Text()
+func (s *Scanner) ScanLine() string {
+	s.sc.Scan()
+	return s.sc.Text()
 }
 
 //end:ScanLine:
 
 //start:ScanStrs:
 //dependsOn[ScanStr]
-func ScanStrs(len int) []string {
-	s := make([]string, len)
+func (s *Scanner) ScanStrs(len int) []string {
+	a := make([]string, len)
 	for i := 0; i < len; i++ {
-		s[i] = ScanStr()
+		a[i] = s.ScanStr()
 	}
-	return s
+	return a
 }
 
 //end:ScanStrs:
 
 //start:ScanInts:
 //dependsOn[ScanInt]
-func ScanInts(len int) []int {
-	s := make([]int, len)
+func (s *Scanner) ScanInts(len int) []int {
+	a := make([]int, len)
 	for i := 0; i < len; i++ {
-		s[i] = ScanInt()
+		a[i] = s.ScanInt()
 	}
-	return s
+	return a
 }
 
 //end:ScanInts:
 
 //start:SetSplitter:
 //dependsOn[NewScanner]
-func SetSplitter(sep string) {
+func (s *Scanner) SetSplitter(sep string) {
 	switch sep {
 	case "":
-		sc.Split(bufio.ScanRunes)
+		s.sc.Split(bufio.ScanRunes)
 	case " ":
-		sc.Split(bufio.ScanWords)
+		s.sc.Split(bufio.ScanWords)
 	default:
-		sc.Split(bufio.ScanLines)
+		s.sc.Split(bufio.ScanLines)
 	}
 }
 
@@ -96,8 +103,8 @@ func SetSplitter(sep string) {
 //imports[unicode/utf8]
 //dependsOn[NewScanner]
 //splitter from: https://golang.org/src/bufio/scan.go?s=13093:13171#L380
-func SetSplitterByRune(sep rune) {
-	sc.Split(func(data []byte, atEOF bool) (advance int, token []byte, err error) {
+func (s *Scanner) SetSplitterByRune(sep rune) {
+	s.sc.Split(func(data []byte, atEOF bool) (advance int, token []byte, err error) {
 		// Skip leading separator.
 		start := 0
 		for width := 0; start < len(data); start += width {
