@@ -4,20 +4,20 @@
 
 package cutil
 
-//start:NewStack:
-type Stack struct {
+//start:NewIntStack:
+type IntStack struct {
 	st []int
 }
 
-func NewStack() *Stack {
-	return &Stack{}
+func NewIntStack() *IntStack {
+	return &IntStack{}
 }
 
-func (s *Stack) push(i int) {
+func (s *IntStack) push(i int) {
 	s.st = append([]int{i}, s.st...)
 }
 
-func (s *Stack) pop() int {
+func (s *IntStack) pop() int {
 	if len(s.st) == 0 {
 		panic("empty array. cannot pop!")
 	}
@@ -31,8 +31,8 @@ func (s *Stack) pop() int {
 	return head
 }
 
-func (s *Stack) isEmpty() bool {
+func (s *IntStack) isEmpty() bool {
 	return len(s.st) == 0
 }
 
-//end:NewStack:
+//end:NewIntStack:
