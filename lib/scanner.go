@@ -17,13 +17,15 @@ import (
 // 2. run scanning
 
 //start:NewScanner:
-//imports[bufio,os]
+//imports[bufio,os,io]
 type Scanner struct {
 	sc *bufio.Scanner
 }
 
 func NewScanner(r io.Reader) *Scanner {
-	return &Scanner{bufio.NewScanner(r)}
+	s := &Scanner{bufio.NewScanner(r)}
+	s.sc.Split(bufio.ScanWords)
+	return s
 }
 
 //end:NewScanner:

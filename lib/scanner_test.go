@@ -55,7 +55,7 @@ func TestScanner_ScanStr(t *testing.T) {
 			"te,st",
 			"12345",
 		}
-		strTest(t, inputs, expectedValues, func(s *Scanner) {})
+		strTest(t, inputs, expectedValues, func(s *Scanner) { s.SetSplitter("\n") })
 	})
 
 	t.Run("split by space", func(t *testing.T) {
