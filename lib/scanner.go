@@ -53,6 +53,20 @@ func (s *Scanner) ScanInt() int {
 
 //end:ScanInt:
 
+//start:ScanBigInt:
+//imports[strconv]
+//dependsOn[NewScanner]
+func (s *Scanner) ScanBigInt() int64 {
+	s.sc.Scan()
+	i, e := strconv.ParseInt(s.sc.Text(), 10, 64)
+	if e != nil {
+		panic(e)
+	}
+	return i
+}
+
+//end:ScanBigInt:
+
 //start:ScanLine:
 //dependsOn[NewScanner]
 func (s *Scanner) ScanLine() string {
@@ -85,6 +99,18 @@ func (s *Scanner) ScanInts(len int) []int {
 }
 
 //end:ScanInts:
+
+//start:ScanBigInts:
+//dependsOn[ScanBigInt]
+func (s *Scanner) ScanBigInts(len int) []int64 {
+	a := make([]int64, len)
+	for i := 0; i < len; i++ {
+		a[i] = s.ScanBigInt()
+	}
+	return a
+}
+
+//end:ScanBigInts:
 
 //start:SetSplitter:
 //dependsOn[NewScanner]
